@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#070909">
+  <meta name="color-scheme" content="dark">
+
+  <title>VibeStamp — Stamp Your Vibe</title>
+  <meta name="description" content="One photo. One verdict. One very questionable certification. Turn your portrait into a collectible vibe card. 100% private — your photo never leaves your device.">
+  <meta name="keywords" content="vibe, certification, portrait, collectible, photo, stamp, card">
+  <meta name="author" content="VibeStamp">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vibestamp.vercel.app">
+  <meta property="og:title" content="VibeStamp — Stamp Your Vibe">
+  <meta property="og:description" content="One photo. One verdict. One very questionable certification.">
+  <meta property="og:image" content="https://vibestamp.vercel.app/assets/og-image.png">
+  <meta property="og:site_name" content="VibeStamp">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VibeStamp — Stamp Your Vibe">
+  <meta name="twitter:description" content="One photo. One verdict. One very questionable certification.">
+  <meta name="twitter:image" content="https://vibestamp.vercel.app/assets/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo/favicon.png">
+  <link rel="apple-touch-icon" href="assets/logo/favicon.png">
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/cards.css">
+</head>
+<body>
+  <a href="#landingView" class="vs-skip-link">Skip to main content</a>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION: HEADER — Brand bar with robot mark and status
+       EDIT TARGET: Yes — modify logo layout, status text, or nav
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="vs-header">
+    <div class="vs-header__inner">
+      <a href="/" class="vs-header__brand" aria-label="VibeStamp home">
+        <span class="vs-header__logo" id="headerRobot" aria-hidden="true"></span>
+        <span class="vs-header__wordmark">VibeStamp</span>
+      </a>
+      <div class="vs-header__status">
+        <span class="vs-status-dot" aria-hidden="true"></span>
+        <span class="vs-status-label">VIBE SYSTEM / ONLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION: LANDING VIEW — Upload scanner / portrait booth
+       EDIT TARGET: Yes — modify layout, copy, scanner aesthetics
+       ═══════════════════════════════════════════════════════════════ -->
+  <main id="landingView" class="vs-landing">
+    <div class="vs-landing__stage">
+
+      <!-- Editorial left column -->
+      <div class="vs-landing__editorial">
+        <div class="vs-landing__eyebrow">COLLECTIBLE VIBE CERTIFICATION</div>
+        <h1 class="vs-landing__headline">
+          <span class="vs-landing__headline-main">STAMP</span>
+          <span class="vs-landing__headline-sub">YOUR VIBE.</span>
+        </h1>
+        <p class="vs-landing__subtext">
+          One photo. One verdict.<br>
+          One very questionable certification.
+        </p>
+
+        <div class="vs-landing__meta">
+          <div class="vs-meta-row">
+            <span class="vs-meta-label">FORMAT</span>
+            <span class="vs-meta-value">PORTRAIT 4:5</span>
+          </div>
+          <div class="vs-meta-row">
+            <span class="vs-meta-label">OUTPUT</span>
+            <span class="vs-meta-value">1080×1350 PNG</span>
+          </div>
+          <div class="vs-meta-row">
+            <span class="vs-meta-label">PROCESSING</span>
+            <span class="vs-meta-value">LOCAL ONLY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scanner / upload area -->
+      <div class="vs-landing__scanner-zone">
+        <div class="vs-scanner" id="scannerZone">
+          <div class="vs-scanner__frame">
+            <div class="vs-scanner__corner vs-scanner__corner--tl"></div>
+            <div class="vs-scanner__corner vs-scanner__corner--tr"></div>
+            <div class="vs-scanner__corner vs-scanner__corner--bl"></div>
+            <div class="vs-scanner__corner vs-scanner__corner--br"></div>
+
+            <div class="vs-scanner__viewport" id="scannerViewport">
+              <div class="vs-scanner__robot" id="scannerRobot" aria-hidden="true"></div>
+              <div class="vs-scanner__label">PHOTO INPUT</div>
+              <div class="vs-scanner__status" id="scannerStatus">SCAN READY</div>
+
+              <button 
+                class="vs-scanner__trigger" 
+                id="uploadTrigger"
+                aria-label="Upload photo to VibeStamp scanner"
+              >
+                <span class="vs-scanner__trigger-icon">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M10 3v10M6 7l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 13v3a1 1 0 001 1h12a1 1 0 001-1v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span class="vs-scanner__trigger-text">DROP OR TAP</span>
+              </button>
+
+              <input 
+                type="file" 
+                id="photoInput" 
+                class="vs-scanner__input" 
+                accept="image/jpeg,image/png,image/webp"
+                aria-label="Select photo file"
+              >
+            </div>
+          </div>
+
+          <div class="vs-scanner__footer">
+            <span class="vs-scanner__badge">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1"/>
+                <path d="M5 2v3l2 1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+              LOCAL PROCESSING
+            </span>
+            <span class="vs-scanner__badge">NO UPLOAD</span>
+            <span class="vs-scanner__badge">JPG · PNG · WEBP</span>
+          </div>
+        </div>
+
+        <p class="vs-privacy-note">
+          <span class="vs-privacy-note__lock" aria-hidden="true">◈</span>
+          YOUR PHOTO STAYS ON YOUR DEVICE. NO SERVER. NO API. NO TRACKING.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION: PROCESSING VIEW — Stamping animation with robot
+       EDIT TARGET: Yes — modify animation steps, timing, robot expressions
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="vs-processing" id="processingView" aria-hidden="true" hidden>
+    <div class="vs-processing__stage">
+      <div class="vs-processing__robot" id="processingRobot"></div>
+      <div class="vs-processing__steps" id="processingSteps">
+        <div class="vs-step" data-step="0">SCANNING PORTRAIT</div>
+        <div class="vs-step" data-step="1">CALCULATING AURA</div>
+        <div class="vs-step" data-step="2">CONSULTING ROBOT</div>
+        <div class="vs-step" data-step="3">APPLYING STAMP</div>
+        <div class="vs-step" data-step="4">CERTIFIED</div>
+      </div>
+      <div class="vs-processing__progress">
+        <div class="vs-processing__bar" id="processingBar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION: RESULT VIEW — Card preview and controls
+       EDIT TARGET: Yes — modify viewer layout, button styles, metadata display
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="vs-result" id="resultView" aria-hidden="true" hidden>
+    <div class="vs-result__stage">
+      <div class="vs-result__card-wrap">
+        <canvas id="cardCanvas" class="vs-result__canvas" aria-label="Generated VibeStamp card"></canvas>
+      </div>
+
+      <div class="vs-result__controls">
+        <button class="vs-btn vs-btn--primary" id="btnDownload" aria-label="Download card as PNG">
+          <span class="vs-btn__icon">↓</span>
+          <span class="vs-btn__label">SAVE</span>
+        </button>
+        <button class="vs-btn vs-btn--secondary" id="btnRegenerate" aria-label="Generate new stamp with same photo">
+          <span class="vs-btn__icon">↻</span>
+          <span class="vs-btn__label">NEW STAMP</span>
+        </button>
+        <button class="vs-btn vs-btn--ghost" id="btnNewPhoto" aria-label="Upload a different photo">
+          <span class="vs-btn__icon">＋</span>
+          <span class="vs-btn__label">NEW PHOTO</span>
+        </button>
+      </div>
+
+      <div class="vs-result__meta" id="resultMeta"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION: FOOTER — Minimal site footer
+       EDIT TARGET: Yes — modify footer content, links, credits
+       ═══════════════════════════════════════════════════════════════ -->
+  <footer class="vs-footer" id="siteFooter">
+    <div class="vs-footer__inner">
+      <span class="vs-footer__mark">VibeStamp</span>
+      <span class="vs-footer__divider" aria-hidden="true">/</span>
+      <span class="vs-footer__copy">2026 — LOCAL CERTIFICATION MACHINE</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/robot.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/canvas.js"></script>
+  <!-- Templates -->
+  <script src="js/templates/template01.js"></script>
+  <script src="js/templates/template02.js"></script>
+  <script src="js/templates/template03.js"></script>
+  <script src="js/templates/template04.js"></script>
+  <script src="js/templates/template05.js"></script>
+  <script src="js/templates/template06.js"></script>
+  <script src="js/templates/template07.js"></script>
+  <script src="js/templates/template08.js"></script>
+  <script src="js/templates/template09.js"></script>
+  <script src="js/templates/template10.js"></script>
+  <script src="js/templates/template11.js"></script>
+  <script src="js/templates/template12.js"></script>
+  <script src="js/templates/template13.js"></script>
+  <script src="js/templates/template14.js"></script>
+  <script src="js/templates/template15.js"></script>
+  <script src="js/templates/template16.js"></script>
+  <script src="js/templates/template17.js"></script>
+  <script src="js/templates/template18.js"></script>
+  <script src="js/templates/template19.js"></script>
+  <script src="js/templates/template20.js"></script>
+  <script src="js/templates/template21.js"></script>
+  <script src="js/templates/template22.js"></script>
+  <script src="js/templates/template23.js"></script>
+  <script src="js/templates/template24.js"></script>
+  <script src="js/templates/template25.js"></script>
+  <script src="js/templates/template26.js"></script>
+  <script src="js/templates/template27.js"></script>
+  <script src="js/templates/template28.js"></script>
+  <script src="js/templates/template29.js"></script>
+  <script src="js/templates/template30.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Noscript fallback -->
+  <noscript>
+    <div style="position:fixed;inset:0;background:#070909;color:#F2F5F2;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:monospace;padding:2rem;text-align:center;">
+      <div>
+        <p style="font-size:1.5rem;margin-bottom:1rem;">VibeStamp requires JavaScript.</p>
+        <p style="color:#8A938E;">Please enable JavaScript to certify your vibe.</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>
