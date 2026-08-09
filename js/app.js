@@ -177,6 +177,15 @@ function runProcessingAnimation() {
       s.style.position = 'absolute';
     });
 
+    // Reset bar so it always animates 0% -> 100% fresh on every run,
+    // instead of possibly starting from wherever the last run left it.
+    DOM.processingBar.style.transition = 'none';
+    DOM.processingBar.style.width = '0%';
+    // Force reflow so the transition-less reset actually paints before
+    // we re-enable the transition for the animated fill.
+    void DOM.processingBar.offsetWidth;
+    DOM.processingBar.style.transition = '';
+
     function advance() {
       if (currentStep > 0) {
         steps[currentStep - 1].classList.remove('active');

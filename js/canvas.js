@@ -96,21 +96,26 @@ function drawBackground(ctx, color = PALETTE.bg) {
  * Draw a subtle noise texture overlay
  */
 function drawNoise(ctx, opacity = 0.03) {
+  // NOTE: previously this blended the noised pixels back with a
+  // rgba(7,9,9, 1 - opacity) fillRect, which at opacity=0.02 meant a
+  // 98%-opaque near-black rectangle painted OVER the entire finished
+  // card (this layer always runs last, after all other art). That's
+  // what made every template render as an almost-invisible ghost.
+  // Fix: scale the per-pixel grain by `opacity` directly and skip the
+  // covering overlay — the noise is applied in place onto whatever is
+  // already drawn, so it stays a subtle texture instead of a curtain.
   const imageData = ctx.getImageData(0, 0, CARD_WIDTH, CARD_HEIGHT);
   const data = imageData.data;
+  const amplitude = Math.max(0, opacity) * 1000; // opacity 0.02 -> ±20, matches old default feel
 
   for (let i = 0; i < data.length; i += 4) {
-    const noise = (Math.random() - 0.5) * 30;
+    const noise = (Math.random() - 0.5) * amplitude;
     data[i] = Math.min(255, Math.max(0, data[i] + noise));
     data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise));
     data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise));
   }
 
   ctx.putImageData(imageData, 0, 0);
-
-  // Apply opacity via overlay
-  ctx.fillStyle = `rgba(7, 9, 9, ${1 - opacity})`;
-  ctx.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 }
 
 /**
@@ -161,8 +166,15 @@ function drawText(ctx, text, x, y, options = {}) {
       ctx.fillText(char, currentX, y);
       currentX += ctx.measureText(char).width + letterSpacing;
     });
-  } else {
+  } else if (maxWidth != null) {
     ctx.fillText(text, x, y, maxWidth);
+  } else {
+    // IMPORTANT: do not pass maxWidth through as `null` here. Canvas2D
+    // coerces a null 4th argument to 0, and fillText(text, x, y, 0)
+    // renders the text at zero width — i.e. invisible. This was
+    // silently blanking every text draw across all templates that
+    // didn't specify letterSpacing (score numbers, verdicts, metadata).
+    ctx.fillText(text, x, y);
   }
 }
 
