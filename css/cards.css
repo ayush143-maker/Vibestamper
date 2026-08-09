@@ -1,0 +1,259 @@
+/* ═══════════════════════════════════════════════════════════════
+   VIBESTAMP — CARDS.CSS
+   Processing animation, result viewer, card preview, controls
+
+   EDIT TARGET: Yes — modify viewer layout, button styles, animation timing
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── SECTION: Processing View ───────────────────────────────── */
+.vs-processing {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: var(--vs-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+}
+
+.vs-processing[hidden] {
+  display: none;
+}
+
+.vs-processing__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  max-width: 400px;
+  width: 100%;
+}
+
+.vs-processing__robot {
+  width: 80px;
+  height: 80px;
+}
+
+.vs-processing__robot svg,
+.vs-processing__robot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.vs-processing__steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 120px;
+}
+
+.vs-step {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--vs-text-dim);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all var(--duration-base) var(--ease-out-expo);
+  position: absolute;
+}
+
+.vs-step.active {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--vs-accent);
+  position: relative;
+}
+
+.vs-step.done {
+  opacity: 0;
+  transform: translateY(-8px);
+  position: absolute;
+}
+
+.vs-processing__progress {
+  width: 100%;
+  max-width: 200px;
+  height: 1px;
+  background: var(--vs-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.vs-processing__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--vs-accent);
+  width: 0%;
+  transition: width 0.4s var(--ease-out-expo);
+  box-shadow: 0 0 8px var(--vs-accent-glow);
+}
+
+/* ── SECTION: Result View ─────────────────────────────────── */
+.vs-result {
+  min-height: 100vh;
+  padding-top: 72px;
+  padding-bottom: var(--space-8);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.vs-result[hidden] {
+  display: none;
+}
+
+.vs-result__stage {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.vs-result__card-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  justify-content: center;
+}
+
+.vs-result__canvas {
+  width: 100%;
+  height: auto;
+  max-width: 480px;
+  display: block;
+  box-shadow: 0 0 0 1px var(--vs-border), 0 24px 64px rgba(0, 0, 0, 0.4);
+}
+
+/* ── SECTION: Result Controls ─────────────────────────────── */
+.vs-result__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  align-items: center;
+}
+
+.vs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--vs-border);
+  transition: all var(--duration-base) var(--ease-out-expo);
+  white-space: nowrap;
+}
+
+.vs-btn__icon {
+  font-size: var(--text-sm);
+  line-height: 1;
+}
+
+.vs-btn__label {
+  line-height: 1;
+}
+
+.vs-btn--primary {
+  background: var(--vs-accent);
+  color: var(--vs-bg);
+  border-color: var(--vs-accent);
+}
+
+.vs-btn--primary:hover,
+.vs-btn--primary:focus-visible {
+  background: var(--vs-accent-dim);
+  border-color: var(--vs-accent-dim);
+  transform: translateY(-1px);
+}
+
+.vs-btn--secondary {
+  background: var(--vs-bg-surface);
+  color: var(--vs-text);
+  border-color: var(--vs-border);
+}
+
+.vs-btn--secondary:hover,
+.vs-btn--secondary:focus-visible {
+  border-color: var(--vs-accent);
+  color: var(--vs-accent);
+  background: var(--vs-accent-glow);
+}
+
+.vs-btn--ghost {
+  background: transparent;
+  color: var(--vs-text-muted);
+  border-color: transparent;
+}
+
+.vs-btn--ghost:hover,
+.vs-btn--ghost:focus-visible {
+  color: var(--vs-text);
+  border-color: var(--vs-border);
+}
+
+/* ── SECTION: Result Meta ───────────────────────────────────── */
+.vs-result__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--vs-text-dim);
+  letter-spacing: 0.06em;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+/* ── SECTION: Responsive Result ─────────────────────────────── */
+@media (max-width: 768px) {
+  .vs-result {
+    padding-top: 64px;
+  }
+
+  .vs-result__stage {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .vs-result__card-wrap {
+    max-width: 100%;
+  }
+
+  .vs-result__canvas {
+    max-width: 100%;
+  }
+
+  .vs-result__controls {
+    width: 100%;
+  }
+
+  .vs-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 100px;
+  }
+
+  .vs-processing__robot {
+    width: 64px;
+    height: 64px;
+  }
+
+  .vs-step {
+    font-size: var(--text-xs);
+  }
+}
